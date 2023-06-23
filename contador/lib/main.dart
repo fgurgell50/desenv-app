@@ -51,7 +51,7 @@ class ContadorAppState extends State<ContadorApp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      Text('CONTADOR', 
-                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                      SizedBox(height: 60),
                   ],
                 ),
@@ -59,7 +59,7 @@ class ContadorAppState extends State<ContadorApp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      Text('Você clicou $contador vezes', 
-                     style: const TextStyle(fontSize: 20, 
+                     style: TextStyle(fontSize: 20, 
                      fontWeight: FontWeight.bold
                      )
                      ),
@@ -79,7 +79,7 @@ class ContadorAppState extends State<ContadorApp> {
                     textAlign: TextAlign.right,   
                   )
                  ),
-                    SizedBox(width: 60),
+                    const SizedBox(width: 60),
                     ElevatedButton(
                     onPressed: incrementar ,
                     child: const Text('+', style: TextStyle(fontSize: 20))
