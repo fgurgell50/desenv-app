@@ -1,0 +1,2 @@
+flutter create first_app --platforms=android,ios,web
+flutter create contador --platforms=android,ios,web
