@@ -44,10 +44,10 @@ class ContadorAppState extends State<ContadorApp> {
         body: Center(          
          child: Padding(
            padding: const EdgeInsets.all(15.0),
-            child: Column(
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 const Row(
+                  const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      Text('CONTADOR', 
@@ -55,19 +55,39 @@ class ContadorAppState extends State<ContadorApp> {
                      SizedBox(height: 60),
                   ],
                 ),
-                const Row(
+                Container(
+                    //color: Colors.deepPurple,
+                    decoration: BoxDecoration(
+                    //color: Colors.white,
+                    border: Border.all(
+                    color: Color.fromARGB(255, 62, 40, 234), // Definindo a cor da borda como branca
+                    width: 3.0, // Definindo a largura da borda
+                ),
+                borderRadius: BorderRadius.circular(8.0), // Definindo o raio da borda
+              ),
+                  child:Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      Text('Você clicou $contador vezes', 
-                     style: TextStyle(fontSize: 20, 
+                     style: const TextStyle(fontSize: 20, 
                      fontWeight: FontWeight.bold
                      )
                      ),
                      // const SizedBox(height: 60),
                   ],
                 ),
+                ),
                const SizedBox(height: 20),
-                Row(
+               Container(
+               decoration: BoxDecoration(
+                    //color: Colors.white,
+                    border: Border.all(
+                    color: Color.fromARGB(255, 106, 80, 236), // Definindo a cor da borda como branca
+                    width: 3.0, // Definindo a largura da borda
+                ),
+                borderRadius: BorderRadius.circular(8.0), // Definindo o raio da borda
+              ),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //SizedBox(width: 80),
@@ -86,6 +106,7 @@ class ContadorAppState extends State<ContadorApp> {
                     ),
                   ],
                 ),  
+               ),
               ],
             ),
          ),
