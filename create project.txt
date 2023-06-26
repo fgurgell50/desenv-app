@@ -1,2 +1,5 @@
+na raiz do diertório flutter_projects digitar cmd
+
 flutter create first_app --platforms=android,ios,web
 flutter create contador --platforms=android,ios,web
+flutter create chamaoutrapagima --platforms=android,ios,web
