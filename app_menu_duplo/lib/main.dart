@@ -39,6 +39,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Menu'),
+        backgroundColor: (Color.fromARGB(255, 156, 157, 159)),
       ),
       drawer: Drawer(
         child: ListView(
@@ -104,15 +105,27 @@ class PrimeiraPagina extends StatelessWidget {
       /*appBar: AppBar(
         title: Text('Primeira Página'),
       ),*/
-      body: Center(
-        child: Text(
-          'Conteúdo da Primeira Página',
-          style: TextStyle(fontSize: 24),
+      body: Container(
+        alignment: Alignment.center,
+        child: Container(
+          width: 230, // Defina a largura desejada para a imagem
+          height: 230, // Defina a altura desejada para a imagem
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/img_unidade.png'),
+              fit: BoxFit.contain,
+            ),
+          ),
+          child: Text(
+            '',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
     );
   }
 }
+
 
 class SegundaPagina extends StatelessWidget {
   @override
