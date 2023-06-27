@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show AppBar, BuildContext, Center, Column, EdgeInsets, ElevatedButton, MainAxisAlignment, Padding, Scaffold, SizedBox, StatelessWidget, Text, TextStyle, Widget;
+import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   final int contador;
