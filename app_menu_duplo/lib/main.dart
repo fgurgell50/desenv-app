@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'primeira_pagina.dart';
+import 'segunda_pagina.dart';
+import 'terceira_pagina.dart';
 
 void main() {
   runApp(MeuApp());
@@ -28,9 +31,17 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     TerceiraPagina(),
   ];
 
+  List<bool> _isSubMenuOpen = [false, false, false]; // Track o estado do submenu
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  void _toggleSubMenu(int index) {
+    setState(() {
+      _isSubMenuOpen[index] = !_isSubMenuOpen[index];
     });
   }
 
@@ -39,7 +50,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Menu'),
-        backgroundColor: (Color.fromARGB(255, 156, 157, 159)),
+        backgroundColor: Color.fromARGB(255, 156, 157, 159),
       ),
       drawer: Drawer(
         child: ListView(
@@ -47,23 +58,53 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
             ListTile(
               title: Text('Home'),
               onTap: () {
-                Navigator.pop(context); // Fecha o Drawer
-                _onItemTapped(0); // Chama a primeira página
+                Navigator.pop(context);
+                _onItemTapped(0);
               },
+              selected: _selectedIndex == 0,
+              tileColor: _selectedIndex == 0 ? Colors.grey : null,
             ),
-            ListTile(
-              title: Text('Segunda Página'),
-              onTap: () {
-                Navigator.pop(context); // Fecha o Drawer
-                _onItemTapped(1); // Chama a segunda página
+            ExpansionTile(
+              title: Text(
+                'Segunda Página',
+                style: TextStyle(
+                  color: _isSubMenuOpen[1] ? Colors.grey : null,
+                ),
+              ),
+              onExpansionChanged: (isOpen) {
+                _toggleSubMenu(1);
               },
+              tileColor: _isSubMenuOpen[1] ? Colors.grey : null,
+              collapsedTextColor: _isSubMenuOpen[1] ? Colors.white : null,
+              children: [
+                ListTile(
+                  title: Text('Subitem 1'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _onItemTapped(1);
+                  },
+                  selected: _selectedIndex == 1,
+                  tileColor: _selectedIndex == 1 ? Colors.grey : null,
+                ),
+                ListTile(
+                  title: Text('Subitem 2'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _onItemTapped(1);
+                  },
+                  selected: _selectedIndex == 1,
+                  tileColor: _selectedIndex == 1 ? Colors.grey : null,
+                ),
+              ],
             ),
             ListTile(
               title: Text('Terceira Página'),
               onTap: () {
-                Navigator.pop(context); // Fecha o Drawer
-                _onItemTapped(2); // Chama a terceira página
+                Navigator.pop(context);
+                _onItemTapped(2);
               },
+              selected: _selectedIndex == 2,
+              tileColor: _selectedIndex == 2 ? Colors.grey : null,
             ),
           ],
         ),
@@ -76,85 +117,22 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
             IconButton(
               icon: Icon(Icons.home),
               onPressed: () {
-                _onItemTapped(0); // Chama a primeira página
+                _onItemTapped(0);
               },
             ),
             IconButton(
               icon: Icon(Icons.pageview),
               onPressed: () {
-                _onItemTapped(1); // Chama a segunda página
+                _onItemTapped(1);
               },
             ),
             IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-                _onItemTapped(2); // Chama a terceira página
+                _onItemTapped(2);
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class PrimeiraPagina extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      /*appBar: AppBar(
-        title: Text('Primeira Página'),
-      ),*/
-      body: Container(
-        alignment: Alignment.center,
-        child: Container(
-          width: 230, // Defina a largura desejada para a imagem
-          height: 230, // Defina a altura desejada para a imagem
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/img_unidade.png'),
-              fit: BoxFit.contain,
-            ),
-          ),
-          child: Text(
-            '',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-class SegundaPagina extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      /*appBar: AppBar(
-        title: Text('Segunda Página'),
-      ),*/
-      body: Center(
-        child: Text(
-          'Conteúdo da Segunda Página',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
-
-class TerceiraPagina extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      /*appBar: AppBar(
-        title: Text('Terceira Página'),
-      ),*/
-      body: Center(
-        child: Text(
-          'Conteúdo da Terceira Página',
-          style: TextStyle(fontSize: 24),
         ),
       ),
     );
