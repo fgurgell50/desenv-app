@@ -1,6 +1,6 @@
 {
-    "name": "app_despesa",
-    "short_name": "app_despesa",
+    "name": "app_lista_tarefas",
+    "short_name": "app_lista_tarefas",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

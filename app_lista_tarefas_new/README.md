@@ -1,4 +1,4 @@
-# app_lista_tarefas_new
+# app_lista_tarefas
 
 A new Flutter project.
 

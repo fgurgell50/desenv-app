@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/tarefas_listview.dart';
-import '../models/tarefa.dart';
-import '../repositories/tarefa_repository.dart';
+import '../models/despesa.dart';
+import '../repositories/despesa_repository.dart';
+import '../widgets/despesas_listview.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -11,27 +11,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _tarefaRepository = TarefaRepository();
-  final _valorTarefaController = TextEditingController();
-  final _descricaoTarefaController = TextEditingController();
-  List<Tarefa> _tarefas = [];
-  late Future<List<Tarefa>> _tarefasFuture = _tarefaRepository.getTarefas().then((tarefas) {
+  final _despesaRepository = DespesaRepository();
+  final _valorDespesaController = TextEditingController();
+  final _descricaoDespesaController = TextEditingController();
+  List<Despesa> _despesas = [];
+  late Future<List<Despesa>> _despesasFuture = _despesaRepository.getDespesas().then((despesas) {
     setState(() {
       // alterar o estado da aplicação
-      _tarefas = tarefas;
+      _despesas = despesas;
     });
-    return tarefas;
+    return despesas;
   });
 
   @override
   void dispose() {
-    _valorTarefaController.dispose();
-    _descricaoTarefaController.dispose();
+    _valorDespesaController.dispose();
+    _descricaoDespesaController.dispose();
     super.dispose();
   }
 
   void _cadastrarTarefa() {
-    if (_valorTarefaController.text.isEmpty || _descricaoTarefaController.text.isEmpty) {
+    if (_valorDespesaController.text.isEmpty || _descricaoDespesaController.text.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
 double valor;
 double _valorTotal = 0.0;
   try {
-    String valorText = _valorTarefaController.text;
+    String valorText = _valorDespesaController.text;
     valorText = valorText.replaceAll(',', '.');
     valor = valor = double.parse(valorText);
   } catch (e) {
@@ -74,32 +74,32 @@ double _valorTotal = 0.0;
     return;
   }
 
-  final novaTarefa = Tarefa(
+  final novaDespesa = Despesa(
     valor: valor,
-    descricao: _descricaoTarefaController.text,
+    descricao: _descricaoDespesaController.text,
     data: DateTime.now(),
   );
 
 
     setState(() {
-      _tarefas.add(novaTarefa);
-      _valorTotal += novaTarefa.valor;
+      _despesas.add(novaDespesa);
+      _valorTotal += novaDespesa.valor;
     });
 
-    _tarefaRepository.saveTarefas(_tarefas);
+    _despesaRepository.saveDespesas(_despesas);
 
-    _valorTarefaController.text = '';
-    _descricaoTarefaController.text = '';
+    _valorDespesaController.text = '';
+    _descricaoDespesaController.text = '';
 
-    print('Valor Total: ${_tarefas.length}');
+    print('Valor Total: ${_despesas.length}');
   }
 
-  void _removerTarefa(int index) {
+  void _removerDespesa(int index) {
     setState(() {
    //   _valorTotal -= _tarefas[index].valor;
-      _tarefas.removeAt(index);
+      _despesas.removeAt(index);
     });
-    _tarefaRepository.saveTarefas(_tarefas);
+    _despesaRepository.saveDespesas(_despesas);
   }
 
   @override
@@ -115,11 +115,11 @@ double _valorTotal = 0.0;
             child: Column(
               children: [
                 TextFormField(
-                  controller: _descricaoTarefaController,
+                  controller: _descricaoDespesaController,
                   decoration: const InputDecoration(hintText: 'Descrição da Despesa'),
                 ),
                 TextFormField(
-                  controller: _valorTarefaController,
+                  controller: _valorDespesaController,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
                       labelText: 'Valor',
@@ -140,8 +140,8 @@ double _valorTotal = 0.0;
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<Tarefa>>(
-              future: _tarefasFuture,
+            child: FutureBuilder<List<Despesa>>(
+              future: _despesasFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -150,7 +150,7 @@ double _valorTotal = 0.0;
                 } else if (snapshot.data?.isEmpty ?? true) {
                   return const Center(child: Text('Nenhuma tarefa cadastrada'));
                 } else {
-                  return TarefasListView(tarefas: _tarefas, removerTarefa: _removerTarefa);
+                  return DespesasListView(despesas: _despesas, removerDespesa: _removerDespesa);
                 }
               },
             ),

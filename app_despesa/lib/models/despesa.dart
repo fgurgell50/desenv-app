@@ -1,14 +1,14 @@
 import 'dart:ffi';
 
-class Tarefa {
+class Despesa {
   final double valor;
   final String descricao;
   final DateTime data;
 
-  Tarefa({required this.valor, required this.descricao, required this.data});
+  Despesa({required this.valor, required this.descricao, required this.data});
   
-  factory Tarefa.fromJson(Map<String, dynamic> json) {
-    return Tarefa(
+  factory Despesa.fromJson(Map<String, dynamic> json) {
+    return Despesa(
       valor: json['valor'],
       descricao: json['descricao'],
       data: DateTime.parse(json['data'])

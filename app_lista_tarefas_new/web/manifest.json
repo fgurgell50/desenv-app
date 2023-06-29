@@ -1,6 +1,6 @@
 {
-    "name": "app_lista_tarefas_new",
-    "short_name": "app_lista_tarefas_new",
+    "name": "app_lista_tarefas",
+    "short_name": "app_lista_tarefas",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

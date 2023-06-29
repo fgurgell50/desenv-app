@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/tarefa.dart';
+import '../models/despesa.dart';
 
-class TarefasListView extends StatelessWidget {
-  final List<Tarefa> tarefas;
-  final void Function(int index) removerTarefa;
+class DespesasListView extends StatelessWidget {
+  final List<Despesa> despesas;
+  final void Function(int index) removerDespesa;
 
-  const TarefasListView({Key? key, required this.tarefas, required this.removerTarefa})
+  const DespesasListView({Key? key, required this.despesas, required this.removerDespesa})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final totalTarefas = tarefas.length;
-    final valorTotal = tarefas.fold(0.0, (double previousValue, Tarefa tarefa) => previousValue + tarefa.valor);
+    final totalDespesas = despesas.length;
+    final valorTotal = despesas.fold(0.0, (double previousValue, Despesa despesa) => previousValue + despesa.valor);
 
     return Column(
       children: [
@@ -30,11 +30,11 @@ class TarefasListView extends StatelessWidget {
         ),
         Divider(),
         Expanded(
-          child: tarefas.isNotEmpty
+          child: despesas.isNotEmpty
               ? ListView.builder(
-                  itemCount: tarefas.length,
+                  itemCount: despesas.length,
                   itemBuilder: (ctx, index) {
-                    final tarefa = tarefas[index];
+                    final tarefa = despesas[index];
                     return Container(
                       margin: const EdgeInsets.symmetric(vertical: 5),
                       decoration: BoxDecoration(
@@ -89,7 +89,7 @@ class TarefasListView extends StatelessWidget {
                                 flex: 1,
                                 child: IconButton(
                                   icon: const Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () => removerTarefa(index),
+                                  onPressed: () => removerDespesa(index),
                                 ),
                               )
                             ],
@@ -99,7 +99,7 @@ class TarefasListView extends StatelessWidget {
                     );
                   },
                 )
-              : const Center(child: Text('Nenhuma tarefa cadastrada')),
+              : const Center(child: Text('Nenhuma Despesa cadastrada')),
         ),
       ],
     );

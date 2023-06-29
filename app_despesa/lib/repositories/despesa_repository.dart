@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/tarefa.dart';
+import '../models/despesa.dart';
 
-class TarefaRepository {
+class DespesaRepository {
   SharedPreferences? sharedPreferences;
   // cache chave e valor
   Future<SharedPreferences> getSharedPreferencesInstance() async {
@@ -14,29 +14,29 @@ class TarefaRepository {
     }
   }
 
-  Future<List<Tarefa>> getTarefas() async {// Future pq é assincrno
+  Future<List<Despesa>> getDespesas() async {// Future pq é assincrno
     final prefs = await getSharedPreferencesInstance();
     //criar a instancia
-    final jsonString = prefs.getString('tarefas_list') ?? '[]'; // caso retonr nulo retrona uma []
+    final jsonString = prefs.getString('despesas_list') ?? '[]'; // caso retonr nulo retrona uma []
     final List<dynamic> parsed = jsonDecode(jsonString); 
     // se retornar o Json e vamos abrir com jsonDecode que transforma em map
-    return parsed.map<Tarefa>((json) => Tarefa.fromJson(json)).toList();
-    // retorna uma lista de tarefas
+    return parsed.map<Despesa>((json) => Despesa.fromJson(json)).toList();
+    // retorna uma lista de despesas
   }
 
-  Future<void> saveTarefas(List<Tarefa> tarefas) async {
-    // lista de tarefas converter para Json e salvar no cache
+  Future<void> saveDespesas(List<Despesa> despesas) async {
+    // lista de despesas converter para Json e salvar no cache
     final prefs = await getSharedPreferencesInstance();
     //criar a instancia
-    final jsonString = jsonEncode(tarefas);
+    final jsonString = jsonEncode(despesas);
     //passar a lista de tarefas e codifica para Json
-    prefs.setString('tarefas_list', jsonString);
+    prefs.setString('despesas_list', jsonString);
     //setar a lista de tarefas
   }
 
-  Future<void> removeTarefas() async {
+  Future<void> removeDespesas() async {
     final prefs = await getSharedPreferencesInstance();
     //cria a instancia
-    prefs.remove('tarefas_list');
+    prefs.remove('despesas_list');
   }
 }
